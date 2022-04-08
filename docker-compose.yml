@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+  log:
+    image: 535425158818.dkr.ecr.ap-southeast-1.amazonaws.com/crabranch/log:latest
+    volumes:
+      - logrotate:/opt/logs
+      - sldownloader-logs:/var/log/sldownloader
+      - nginx-logs:/var/log/nginx/crabranch
+      - fail2ban-logs:/var/log/fail2ban
+      - boinc:/var/lib/boinc-client
+
+volumes:
+  logrotate:
+  sldownloader-logs:
+  nginx-logs:
+  fail2ban-logs:
+  boinc:
