@@ -13,6 +13,14 @@ services:
 volumes:
   logrotate:
   sldownloader-logs:
+    external:
+      name: sldownloaderapp_sldownloader-logs
   nginx-logs:
+    external:
+      name: crabranchproxy_nginx-logs
   fail2ban-logs:
+    external:
+      name: crabranchproxy_fail2ban-logs
   boinc:
+    external:
+      name: boinc_boinc
