@@ -1,0 +1,16 @@
+FROM ubuntu:latest
+
+RUN apt-get update &&  \
+    apt-get install -y wget && \
+    rm -rf /var/lib/apt/lists/*
+RUN wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/arm64/latest/amazon-cloudwatch-agent.deb && \
+    dpkg -i -E ./amazon-cloudwatch-agent.deb && \
+    rm -rf /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard && \
+    rm -rf /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl && \
+    rm -rf /opt/aws/amazon-cloudwatch-agent/bin/config-downloader
+COPY amazon-cloudwatch-agent.d/* /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.d/
+RUN chmod 644 /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.d/*
+
+ENV RUN_IN_CONTAINER="True"
+
+ENTRYPOINT ["/opt/aws/amazon-cloudwatch-agent/bin/start-amazon-cloudwatch-agent"]

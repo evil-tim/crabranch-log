@@ -9,6 +9,13 @@ services:
       - nginx-logs:/var/log/nginx/crabranch
       - fail2ban-logs:/var/log/fail2ban
       - boinc:/var/lib/boinc-client
+  cloudwatch:
+    image: 535425158818.dkr.ecr.ap-southeast-1.amazonaws.com/crabranch/cloudwatch:latest
+    volumes:
+      - sldownloader-logs:/var/log/sldownloader
+      - nginx-logs:/var/log/nginx/crabranch
+      - fail2ban-logs:/var/log/fail2ban
+      - boinc:/var/lib/boinc-client
 
 volumes:
   logrotate:

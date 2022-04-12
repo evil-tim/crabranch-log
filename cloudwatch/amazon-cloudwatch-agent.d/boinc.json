@@ -1,0 +1,22 @@
+{
+    "agent": {},
+    "logs": {
+        "logs_collected": {
+            "files": {
+                "collect_list": [
+                    {
+                        "file_path": "/var/lib/boinc-client/stdoutdae.log",
+                        "log_group_name": "/Crabranch/App",
+                        "timezone": "UTC"
+                    },
+                    {
+                        "file_path": "/var/lib/boinc-client/stderrdae.log",
+                        "log_group_name": "/Crabranch/App",
+                        "timezone": "UTC"
+                    }
+                ]
+            }
+        },
+        "log_stream_name": "boinc_log_stream"
+    }
+}

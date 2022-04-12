@@ -6,19 +6,27 @@ phases:
       - echo "${DOCKERHUB_PASSWORD}" | docker login -u "${DOCKERHUB_USERNAME}" --password-stdin
       - ECR_URI=535425158818.dkr.ecr.ap-southeast-1.amazonaws.com
       - LR_REPOSITORY_URI=$ECR_URI/crabranch/logrotate
+      - CW_REPOSITORY_URI=$ECR_URI/crabranch/cloudwatch
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=${COMMIT_HASH:=latest}
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $ECR_URI
       - docker pull $LR_REPOSITORY_URI:latest || true
+      - docker pull $CW_REPOSITORY_URI:latest || true
   build:
     commands:
       - cd logrotate
       - docker build -t $LR_REPOSITORY_URI:latest .
       - docker tag $LR_REPOSITORY_URI:latest $LR_REPOSITORY_URI:$IMAGE_TAG
+      - cd ..
+      - cd cloudwatch
+      - docker build -t $CW_REPOSITORY_URI:latest .
+      - docker tag $CW_REPOSITORY_URI:latest $CW_REPOSITORY_URI:$IMAGE_TAG
   post_build:
     commands:
       - docker push $LR_REPOSITORY_URI:latest
       - docker push $LR_REPOSITORY_URI:$IMAGE_TAG
+      - docker push $CW_REPOSITORY_URI:latest
+      - docker push $CW_REPOSITORY_URI:$IMAGE_TAG
 artifacts:
   files:
     - code-deploy-scripts/start_app.sh
