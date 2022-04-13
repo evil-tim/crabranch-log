@@ -12,6 +12,7 @@ services:
   cloudwatch:
     image: 535425158818.dkr.ecr.ap-southeast-1.amazonaws.com/crabranch/cloudwatch:latest
     volumes:
+      - cloudwatch:/opt/aws/amazon-cloudwatch-agent/logs/state
       - sldownloader-logs:/var/log/sldownloader
       - nginx-logs:/var/log/nginx/crabranch
       - fail2ban-logs:/var/log/fail2ban
@@ -19,6 +20,7 @@ services:
 
 volumes:
   logrotate:
+  cloudwatch:
   sldownloader-logs:
     external:
       name: sldownloaderapp_sldownloader-logs
