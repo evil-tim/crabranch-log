@@ -12,6 +12,6 @@
                 ]
             }
         },
-        "log_stream_name": "fail2ban_log_stream"
+        "log_stream_name": "crabranch_log_stream"
     }
 }
