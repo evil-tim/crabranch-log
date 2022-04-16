@@ -6,6 +6,7 @@ RUN apt-get update &&  \
     rm -rf /var/lib/apt/lists/*
 RUN wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb && \
     dpkg -i -E ./amazon-cloudwatch-agent.deb && \
+    rm amazon-cloudwatch-agent.deb && \
     rm -rf /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-config-wizard && \
     rm -rf /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl && \
     rm -rf /opt/aws/amazon-cloudwatch-agent/bin/config-downloader
